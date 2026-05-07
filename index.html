@@ -2,131 +2,129 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartCash - Controle Financeiro</title>
+    <meta name="description" content="Plataforma SmartCash para controle financeiro pessoal, com dashboard, análise de categorias e histórico de transações.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+ <!-- cabeçalho -->
 
-    <!-- Cabeçalho Principal -->
-    <header>
-        <div class="container">
-            <h1>💰 SmartCash</h1>
-            <p>Sua gestão financeira inteligente</p>
-        </div>
-    </header>
-
-    <main class="container">
+    <div id="wallet-window">
         
-        <!-- SEÇÃO DE RESUMO (Dashboard) -->
-        <!-- Usamos <section> para áreas temáticas e <article> para itens independentes -->
-        <section id="resumo" aria-label="Resumo Financeiro">
-            <article class="card card-entradas">
-                <h3>Total Entradas</h3>
-                <p id="total-entradas" aria-live="polite">R$ 0,00</p>
-            </article>
-
-            <article class="card card-saidas">
-                <h3>Total Saídas</h3>
-                <p id="total-saidas" aria-live="polite">R$ 0,00</p>
-            </article>
-
-            <article class="card card-saldo">
-                <h3>Saldo Atual</h3>
-                <p id="saldo-total" aria-live="polite">R$ 0,00</p>
-                <!-- Indicador de tendência para responder se está "melhorando ou piorando" -->
-                <small id="tendencia-saldo">Tendência: Estável ↔️</small>
-            </article>
-        </section>
-
-        <!-- SEÇÃO DE ENTRADA DE DADOS -->
-        <section id="transacao-form">
-            <h2>Nova Transação</h2>
-            <form id="formulario">
-                <div class="input-group">
-                    <label for="descricao">Descrição</label>
-                    <input type="text" id="descricao" placeholder="Ex: Salário, Aluguel..." required>
-                </div>
-
-                <div class="input-group">
-                    <label for="valor">Valor (R$)</label>
-                    <input type="number" id="valor" step="0.01" min="0.01" placeholder="0,00" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="data">Data</label>
-                    <input type="date" id="data" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="categoria">Categoria</label>
-                    <select id="categoria" required>
-                        <option value="" disabled selected>Selecione...</option>
-                        <optgroup label="Entradas">
-                            <option value="salario">Salário</option>
-                            <option value="investimentos">Investimentos</option>
-                        </optgroup>
-                        <optgroup label="Saídas">
-                            <option value="alimentacao">Alimentação</option>
-                            <option value="moradia">Moradia</option>
-                            <option value="transporte">Transporte</option>
-                            <option value="lazer">Lazer</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="tipo">Tipo</label>
-                    <select id="tipo" required>
-                        <option value="entrada">💰 Entrada</option>
-                        <option value="saida">💸 Saída</option>
-                    </select>
-                </div>
-
-                <button type="submit" id="btn-adicionar">Adicionar</button>
-            </form>
-        </section>
-
-        <!-- SEÇÃO DE ANÁLISE DE CATEGORIAS -->
-        <!-- Responde: "Em que categoria estou gastando mais?" -->
-        <section id="analise">
-            <h2>Gastos por Categoria</h2>
-            <div id="ranking-categorias">
-                <p class="placeholder-text">Adicione transações para ver o ranking.</p>
+        <header id="window-header">
+            <div class="title-bar">
+                <img src="logo.svg" alt="SmartCash - Logo" id="app-logo">
+                <span>SmartCash - Personal Finance</span>
             </div>
-        </section>
+            <nav id="top-menu" aria-label="Menu Principal do Programa">
+                <ul>
+                    <li><a href="#file">File</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                    <li><a href="#help">Help</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <!-- SEÇÃO DE HISTÓRICO -->
-        <section id="extrato">
-            <h2>Histórico de Transações</h2>
-            <div class="filtros">
-                <!-- Útil para o futuro: filtrar por mês/ano -->
-            </div>
-            
-            <!-- Usar <table> para dados tabulares é semanticamente correto aqui -->
-            <div class="tabela-container">
+        <nav id="tabs-navigation" aria-label="Navegação por Abas">
+            <ul>
+                <li class="tab-item active">
+                    <a href="#overview" aria-current="page">
+                        <span class="icon">🏠</span> Overview
+                    </a>
+                </li>
+                <li class="tab-item">
+                    <a href="#transaction-form">
+                        <span class="icon">➕</span> Add New
+                    </a>
+                </li>
+                <li class="tab-item">
+                    <a href="#extrato">
+                        <span class="icon">📜</span> Transactions
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="overview" class="tab-panel active" aria-labelledby="tab-overview">
+                
+                <div class="overview-layout">
+                    
+                    <div class="overview-left">
+                        <h2 class="panel-header">
+                            <span class="header-icon">⚠</span> Balances
+                        </h2>
+                        
+                        <div class="balances-container" aria-live="polite">
+                            <article class="balance-item">
+                                <span class="label">Total Entradas:</span>
+                                <span id="total-entradas" class="value positive">R$ 0,00</span>
+                            </article>
+                            
+                            <article class="balance-item">
+                                <span class="label">Total Saídas:</span>
+                                <span id="total-saidas" class="value negative">R$ 0,00</span>
+                            </article>
+                            
+                            <hr aria-hidden="true">
+                            
+                            <article class="balance-item total">
+                                <span class="label">Saldo Total:</span>
+                                <span id="saldo-total" class="value">R$ 0,00</span>
+                                <small id="tendencia-saldo" class="tendencia">↔️ Estável</small>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="overview-right">
+                        <h2 class="panel-header">
+                            <span class="header-icon">⚠</span> Recent Transactions & Analysis
+                        </h2>
+                        
+                        <div id="recent-actions-area">
+                            <div class="no-transactions">No transactions yet</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="transaction-form" class="tab-panel" aria-labelledby="tab-add-new">
+                <h2>New Transaction</h2>
+                <form id="formulario">
+                    <div class="input-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <button type="submit">Adicionar</button>
+                </form>
+            </section>
+
+            <section id="extrato" class="tab-panel" aria-labelledby="tab-transactions">
+                <h2>Historical Ledger</h2>
                 <table id="tabela-transacoes">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lista-transacoes">
-                        <!-- Conteúdo dinâmico via JS -->
-                    </tbody>
-                </table>
+                    </table>
+            </section>
+
+        </main>
+
+        <footer id="window-status-bar">
+            <div class="status-left">
+                <span class="status-item">Syncing Headers: <span class="status-percent">96.8%...</span></span>
+                <progress value="96.8" max="100" id="sync-progress"></progress>
             </div>
-        </section>
+            <div class="status-right">
+                <span class="status-currency">BRL</span>
+                <span class="status-icons">🔒 HD 🌍</span>
+            </div>
+        </footer>
 
-    </main>
-
-    <footer>
-        <p>&copy; 2026 SmartCash - Projeto de Estudo Front-end</p>
-    </footer>
+    </div>
 
 </body>
 </html>
