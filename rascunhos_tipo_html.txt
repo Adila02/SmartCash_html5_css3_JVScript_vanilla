@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCash - Controle Financeiro</title>
+    <meta name="description" content="Plataforma SmartCash para controle financeiro pessoal, com dashboard, análise de categorias e histórico de transações.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+ <!-- cabeçalho -->
+
+    <div id="wallet-window">
+        
+        <header id="window-header">
+            <div class="title-bar">
+                <img src="logo.svg" alt="SmartCash - Logo" id="app-logo">
+                <span>SmartCash - Personal Finance</span>
+            </div>
+            <nav id="top-menu" aria-label="Menu Principal do Programa">
+                <ul>
+                    <li><a href="#file">File</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                    <li><a href="#help">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <nav id="tabs-navigation" aria-label="Navegação por Abas">
+            <ul>
+                <li class="tab-item active">
+                    <a href="#overview" aria-current="page">
+                        <span class="icon">🏠</span> Overview
+                    </a>
+                </li>
+                <li class="tab-item">
+                    <a href="#transaction-form">
+                        <span class="icon">➕</span> Add New
+                    </a>
+                </li>
+                <li class="tab-item">
+                    <a href="#extrato">
+                        <span class="icon">📜</span> Transactions
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="overview" class="tab-panel active" aria-labelledby="tab-overview">
+                
+                <div class="overview-layout">
+                    
+                    <div class="overview-left">
+                        <h2 class="panel-header">
+                            <span class="header-icon">⚠</span> Balances
+                        </h2>
+                        
+                        <div class="balances-container" aria-live="polite">
+                            <article class="balance-item">
+                                <span class="label">Total Entradas:</span>
+                                <span id="total-entradas" class="value positive">R$ 0,00</span>
+                            </article>
+                            
+                            <article class="balance-item">
+                                <span class="label">Total Saídas:</span>
+                                <span id="total-saidas" class="value negative">R$ 0,00</span>
+                            </article>
+                            
+                            <hr aria-hidden="true">
+                            
+                            <article class="balance-item total">
+                                <span class="label">Saldo Total:</span>
+                                <span id="saldo-total" class="value">R$ 0,00</span>
+                                <small id="tendencia-saldo" class="tendencia">↔️ Estável</small>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="overview-right">
+                        <h2 class="panel-header">
+                            <span class="header-icon">⚠</span> Recent Transactions & Analysis
+                        </h2>
+                        
+                        <div id="recent-actions-area">
+                            <div class="no-transactions">No transactions yet</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="transaction-form" class="tab-panel" aria-labelledby="tab-add-new">
+                <h2>New Transaction</h2>
+                <form id="formulario">
+                    <div class="input-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <button type="submit">Adicionar</button>
+                </form>
+            </section>
+
+            <section id="extrato" class="tab-panel" aria-labelledby="tab-transactions">
+                <h2>Historical Ledger</h2>
+                <table id="tabela-transacoes">
+                    </table>
+            </section>
+
+        </main>
+
+        <footer id="window-status-bar">
+            <div class="status-left">
+                <span class="status-item">Syncing Headers: <span class="status-percent">96.8%...</span></span>
+                <progress value="96.8" max="100" id="sync-progress"></progress>
+            </div>
+            <div class="status-right">
+                <span class="status-currency">BRL</span>
+                <span class="status-icons">🔒 HD 🌍</span>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -4,46 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCash - Controle Financeiro</title>
-    <meta name="description" content="Plataforma SmartCash para controle financeiro pessoal, com dashboard, análise de categorias e histórico de transações.">
+    <meta name="description" content="SmartCash - Controle financeiro pessoal completo. Registre entradas e saídas, acompanhe seu saldo em tempo real e mantenha seus dados salvos com segurança.">
+    <meta name="keywords" content="finanças pessoais, controle de gastos, orçamento, entradas, saídas, saldo, gestão financeira">
+    <meta name="author" content="Seu Nome">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="SmartCash - Carteira Financeira Pessoal">
+    <meta property="og:description" content="Gerencie suas finanças de forma simples e inteligente.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://seudominio.com/smartcash">
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <title>SmartCash - Carteira Financeira Pessoal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+<base target="_blank">
 </head>
 <body>
- <!-- cabeçalho -->
 
     <div id="wallet-window">
-        
+
         <header id="window-header">
             <div class="title-bar">
-                <img src="logo.svg" alt="SmartCash - Logo" id="app-logo">
-                <span>SmartCash - Personal Finance</span>
+                <img src="logo.svg" alt="SmartCash - Logo da aplicação" id="app-logo" width="32" height="32">
+                <h1>SmartCash - Carteira Financeira Pessoal</h1>
             </div>
-            <nav id="top-menu" aria-label="Menu Principal do Programa">
+            <nav id="top-menu" aria-label="Menu Principal">
                 <ul>
-                    <li><a href="#file">File</a></li>
-                    <li><a href="#settings">Settings</a></li>
-                    <li><a href="#help">Help</a></li>
+                    <li><a href="#" id="menu-exportar">Exportar Dados</a></li>
+                    <li><a href="#" id="menu-limpar">Limpar Tudo</a></li>
+                    <li><a href="#" id="menu-sobre">Sobre</a></li>
                 </ul>
             </nav>
         </header>
 
         <nav id="tabs-navigation" aria-label="Navegação por Abas">
-            <ul>
-                <li class="tab-item active">
-                    <a href="#overview" aria-current="page">
-                        <span class="icon">🏠</span> Overview
+            <ul role="tablist">
+                <li class="tab-item active" role="presentation">
+                    <a href="#overview" id="tab-overview" role="tab" aria-selected="true" aria-controls="overview">
+                        <span class="icon" aria-hidden="true">🏠</span>
+                        <span class="tab-text">Visão Geral</span>
                     </a>
                 </li>
-                <li class="tab-item">
-                    <a href="#transaction-form">
-                        <span class="icon">➕</span> Add New
+                <li class="tab-item" role="presentation">
+                    <a href="#transaction-form" id="tab-add-new" role="tab" aria-selected="false" aria-controls="transaction-form">
+                        <span class="icon" aria-hidden="true">➕</span>
+                        <span class="tab-text">Nova Transação</span>
                     </a>
                 </li>
-                <li class="tab-item">
-                    <a href="#extrato">
-                        <span class="icon">📜</span> Transactions
+                <li class="tab-item" role="presentation">
+                    <a href="#extrato" id="tab-transactions" role="tab" aria-selected="false" aria-controls="extrato">
+                        <span class="icon" aria-hidden="true">📜</span>
+                        <span class="tab-text">Extrato</span>
                     </a>
                 </li>
             </ul>
@@ -51,80 +61,334 @@
 
         <main id="main-content">
 
-            <section id="overview" class="tab-panel active" aria-labelledby="tab-overview">
-                
+            <!-- ABA 1: VISÃO GERAL -->
+            <section id="overview" class="tab-panel active" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+
                 <div class="overview-layout">
-                    
+
                     <div class="overview-left">
                         <h2 class="panel-header">
-                            <span class="header-icon">⚠</span> Balances
+                            <span class="header-icon" aria-hidden="true">💰</span>
+                            Resumo Financeiro
                         </h2>
-                        
-                        <div class="balances-container" aria-live="polite">
-                            <article class="balance-item">
-                                <span class="label">Total Entradas:</span>
+
+                        <div class="balances-container" aria-live="polite" aria-atomic="false">
+                            <article class="balance-item entrada">
+                                <span class="label">
+                                    <span class="icon" aria-hidden="true">📈</span>
+                                    Total de Entradas:
+                                </span>
                                 <span id="total-entradas" class="value positive">R$ 0,00</span>
                             </article>
-                            
-                            <article class="balance-item">
-                                <span class="label">Total Saídas:</span>
+
+                            <article class="balance-item saida">
+                                <span class="label">
+                                    <span class="icon" aria-hidden="true">📉</span>
+                                    Total de Saídas:
+                                </span>
                                 <span id="total-saidas" class="value negative">R$ 0,00</span>
                             </article>
-                            
+
                             <hr aria-hidden="true">
-                            
+
                             <article class="balance-item total">
-                                <span class="label">Saldo Total:</span>
+                                <span class="label">
+                                    <span class="icon" aria-hidden="true">⚖️</span>
+                                    Saldo Total:
+                                </span>
                                 <span id="saldo-total" class="value">R$ 0,00</span>
-                                <small id="tendencia-saldo" class="tendencia">↔️ Estável</small>
+                                <small id="tendencia-saldo" class="tendencia" aria-live="polite">
+                                    <span aria-hidden="true">↔️</span> Estável
+                                </small>
                             </article>
+                        </div>
+
+                        <!-- Gráfico simples (será implementado com CSS/JS) -->
+                        <div class="chart-container" aria-label="Gráfico de distribuição financeira">
+                            <h3 class="chart-title">Distribuição</h3>
+                            <div id="grafico-distribuicao" class="chart-placeholder" role="img" aria-label="Gráfico de pizza mostrando proporção entre entradas e saídas">
+                                <div class="chart-no-data">Adicione transações para visualizar</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="overview-right">
                         <h2 class="panel-header">
-                            <span class="header-icon">⚠</span> Recent Transactions & Analysis
+                            <span class="header-icon" aria-hidden="true">🕐</span>
+                            Transações Recentes
                         </h2>
-                        
+
                         <div id="recent-actions-area">
-                            <div class="no-transactions">No transactions yet</div>
+                            <p class="no-transactions" role="status">Nenhuma transação registrada ainda. Comece adicionando uma nova transação!</p>
+                        </div>
+
+                        <!-- Resumo mensal -->
+                        <div class="monthly-summary">
+                            <h3 class="panel-header">
+                                <span class="header-icon" aria-hidden="true">📅</span>
+                                Resumo do Mês Atual
+                            </h3>
+                            <div class="monthly-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Transações:</span>
+                                    <span id="total-transacoes-mes" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Maior Entrada:</span>
+                                    <span id="maior-entrada-mes" class="stat-value positive">R$ 0,00</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Maior Saída:</span>
+                                    <span id="maior-saida-mes" class="stat-value negative">R$ 0,00</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </section>
 
-            <section id="transaction-form" class="tab-panel" aria-labelledby="tab-add-new">
-                <h2>New Transaction</h2>
-                <form id="formulario">
-                    <div class="input-group">
-                        <label for="data">Data</label>
-                        <input type="date" id="data" required>
+            <!-- ABA 2: NOVA TRANSAÇÃO -->
+            <section id="transaction-form" class="tab-panel" role="tabpanel" aria-labelledby="tab-add-new" tabindex="0" hidden>
+                <h2 class="panel-header">
+                    <span class="header-icon" aria-hidden="true">➕</span>
+                    Nova Transação
+                </h2>
+
+                <form id="formulario" novalidate>
+                    <fieldset>
+                        <legend>Informações da Transação</legend>
+
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="descricao">
+                                    Descrição <span class="required" aria-label="obrigatório">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="descricao" 
+                                    name="descricao"
+                                    placeholder="Ex: Salário, Mercado, Aluguel, Freelance"
+                                    required
+                                    maxlength="100"
+                                    autocomplete="off"
+                                    aria-describedby="descricao-ajuda"
+                                >
+                                <small id="descricao-ajuda" class="input-help">Descreva brevemente a transação</small>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="valor">
+                                    Valor (R$) <span class="required" aria-label="obrigatório">*</span>
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="valor" 
+                                    name="valor"
+                                    step="0.01" 
+                                    min="0.01" 
+                                    max="999999999.99"
+                                    placeholder="0,00"
+                                    required
+                                    inputmode="decimal"
+                                    aria-describedby="valor-ajuda"
+                                >
+                                <small id="valor-ajuda" class="input-help">Use ponto para centavos (ex: 1500.50)</small>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="data">
+                                    Data <span class="required" aria-label="obrigatório">*</span>
+                                </label>
+                                <input 
+                                    type="date" 
+                                    id="data" 
+                                    name="data"
+                                    required
+                                    aria-describedby="data-ajuda"
+                                >
+                                <small id="data-ajuda" class="input-help">Data em que ocorreu a transação</small>
+                            </div>
+
+                            <div class="input-group tipo-group">
+                                <fieldset class="tipo-fieldset">
+                                    <legend>Tipo de Transação <span class="required" aria-label="obrigatório">*</span></legend>
+                                    <div class="tipo-options">
+                                        <label class="tipo-label entrada-label">
+                                            <input 
+                                                type="radio" 
+                                                name="tipo" 
+                                                value="entrada" 
+                                                checked
+                                                required
+                                            >
+                                            <span class="tipo-texto">
+                                                <span class="icon" aria-hidden="true">📈</span>
+                                                Entrada
+                                            </span>
+                                        </label>
+                                        <label class="tipo-label saida-label">
+                                            <input 
+                                                type="radio" 
+                                                name="tipo" 
+                                                value="saida"
+                                                required
+                                            >
+                                            <span class="tipo-texto">
+                                                <span class="icon" aria-hidden="true">📉</span>
+                                                Saída
+                                            </span>
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <span class="icon" aria-hidden="true">💾</span>
+                            Adicionar Transação
+                        </button>
+                        <button type="reset" class="btn-secondary">
+                            <span class="icon" aria-hidden="true">🔄</span>
+                            Limpar Formulário
+                        </button>
                     </div>
-                    <button type="submit">Adicionar</button>
                 </form>
+
+                <!-- Área de feedback -->
+                <div id="form-feedback" class="feedback-area" role="status" aria-live="polite" aria-atomic="true"></div>
             </section>
 
-            <section id="extrato" class="tab-panel" aria-labelledby="tab-transactions">
-                <h2>Historical Ledger</h2>
-                <table id="tabela-transacoes">
+            <!-- ABA 3: EXTRATO -->
+            <section id="extrato" class="tab-panel" role="tabpanel" aria-labelledby="tab-transactions" tabindex="0" hidden>
+                <h2 class="panel-header">
+                    <span class="header-icon" aria-hidden="true">📜</span>
+                    Histórico de Transações
+                </h2>
+
+                <!-- Filtros -->
+                <div class="filtros-extrato">
+                    <fieldset>
+                        <legend>Filtrar Transações</legend>
+                        <div class="filtro-group">
+                            <label for="filtro-tipo">Tipo:</label>
+                            <select id="filtro-tipo" name="filtro-tipo">
+                                <option value="todos">Todos</option>
+                                <option value="entrada">Apenas Entradas</option>
+                                <option value="saida">Apenas Saídas</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtro-mes">Mês:</label>
+                            <input type="month" id="filtro-mes" name="filtro-mes">
+                        </div>
+                        <button type="button" id="btn-filtrar" class="btn-secondary">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            Filtrar
+                        </button>
+                        <button type="button" id="btn-limpar-filtros" class="btn-tertiary">
+                            Limpar Filtros
+                        </button>
+                    </fieldset>
+                </div>
+
+                <div class="table-wrapper" tabindex="0" aria-label="Tabela de transações - use as setas para navegar">
+                    <table id="tabela-transacoes">
+                        <caption class="sr-only">Lista de todas as transações financeiras registradas</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <span class="icon" aria-hidden="true">📅</span>
+                                    Data
+                                </th>
+                                <th scope="col">
+                                    <span class="icon" aria-hidden="true">📝</span>
+                                    Descrição
+                                </th>
+                                <th scope="col">
+                                    <span class="icon" aria-hidden="true">💵</span>
+                                    Valor
+                                </th>
+                                <th scope="col">
+                                    <span class="icon" aria-hidden="true">🏷️</span>
+                                    Tipo
+                                </th>
+                                <th scope="col">
+                                    <span class="icon" aria-hidden="true">⚙️</span>
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-transacoes">
+                            <!-- Populado dinamicamente via JavaScript -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td colspan="2"><strong>Total do Período:</strong></td>
+                                <td id="total-periodo" colspan="3"><strong>R$ 0,00</strong></td>
+                            </tr>
+                        </tfoot>
                     </table>
+                </div>
+
+                <p id="sem-transacoes" class="no-transactions" role="status">
+                    Nenhuma transação encontrada. Adicione uma nova transação para começar.
+                </p>
             </section>
 
         </main>
 
         <footer id="window-status-bar">
             <div class="status-left">
-                <span class="status-item">Syncing Headers: <span class="status-percent">96.8%...</span></span>
-                <progress value="96.8" max="100" id="sync-progress"></progress>
+                <span class="status-item">
+                    <span class="icon" aria-hidden="true">💾</span>
+                    Dados salvos localmente
+                </span>
+                <span class="status-item" id="status-transacoes">
+                    <span class="icon" aria-hidden="true">📊</span>
+                    <span id="contador-transacoes">0 transações</span>
+                </span>
             </div>
             <div class="status-right">
-                <span class="status-currency">BRL</span>
-                <span class="status-icons">🔒 HD 🌍</span>
+                <span class="status-currency" aria-label="Moeda: Real Brasileiro">BRL</span>
+                <span class="status-icons" aria-label="Segurança ativa">
+                    <span aria-hidden="true">🔒</span>
+                    <span class="sr-only">Dados protegidos</span>
+                </span>
             </div>
         </footer>
 
     </div>
 
+    <!-- Modal de Confirmação (inicialmente oculto) -->
+    <div id="modal-confirmacao" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" hidden>
+        <div class="modal-content">
+            <h3 id="modal-titulo">Confirmar Exclusão</h3>
+            <p id="modal-mensagem">Tem certeza que deseja excluir esta transação?</p>
+            <div class="modal-actions">
+                <button type="button" id="btn-confirmar-exclusao" class="btn-danger">Sim, Excluir</button>
+                <button type="button" id="btn-cancelar-exclusao" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Sobre (inicialmente oculto) -->
+    <div id="modal-sobre" class="modal" role="dialog" aria-modal="true" aria-labelledby="sobre-titulo" hidden>
+        <div class="modal-content">
+            <h3 id="sobre-titulo">Sobre o SmartCash</h3>
+            <p>SmartCash - Carteira Financeira Pessoal</p>
+            <p>Versão 1.0.0</p>
+            <p>Desenvolvido com HTML5, CSS3 e JavaScript Vanilla.</p>
+            <p>Seus dados são armazenados localmente no navegador.</p>
+            <button type="button" id="btn-fechar-sobre" class="btn-secondary">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Overlay para modais -->
+    <div id="modal-overlay" class="modal-overlay" hidden></div>
+
+    <script src="app.js"></script>
 </body>
 </html>
